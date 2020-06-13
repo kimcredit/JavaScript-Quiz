@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>JavaScript Quiz</title>
+        <link href="style.css" rel="stylesheet">
+        <script defer src="./script.js"></script>
+    </head>
+        <body>
+            <header>
+                <h3 id="count-down">60</h3>
+            </header>
+            <main>
+                <div class="container">
+                    <div id="start-container" >
+                        <h1>Coding Quiz Challenge</h1>
+                        <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect
+                            answers will penalize your scoretime by ten seconds! 
+                        </p>
+                        <button id="start-button">Start Quiz</button>
+                    </div>
+                    <div id="quiz-container" class="hide">
+                        <h1 id="question-element">Question:</h1>
+                        <!--contain each button in div tags to make each automatically appear on a new line-->
+                        <div id="buttons">
+                            <button class="btn">Option 01</button>
+                            <button class="btn">Option 02</button>
+                            <button class="btn">Option 03</button>
+                            <button class="btn">Option 04</button>
+                    </div>
+                        <div id="end-container" class="hide">
+                        <h1>All Done!</h1>
+                        <h2 id="user-score">Final User Score</h2>
+                        <input id="user-initials" placeholder="initials"> </input>
+                        <button id="submit-button">Submit</button>
+                    </div>
+                </div>
+            </main>
+                <div id="right-wrong" class="hide"></div>
+            <footer>
+
+            </footer>
+            
+        </body>
+        
+    
+</html>
