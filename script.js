@@ -28,7 +28,7 @@ function quizQuestions (question, answers, correctAnswer) {
     this.question = question;
     this.answers = answers;
     this.correctAnswer = correctAnswer;
- };
+}
 
 //create an array that holds different quiz questions within the created quizQuestion function
 var questions = [
@@ -42,23 +42,22 @@ var questions = [
 
 // Assigning correct answers 
 
-    //for each quiz question run assign correct
-    for  (var k = 0; k < questions.length; k++) {
-        assignCorrect();
-    };
-   
-    //assign the 'correct' value to the right answer
-    function assignCorrect() {
-        // for each possible answer
-        for (var i = 0; i < questions[k].answers.length; i++) {
-            // if the quiz answer is the same as the correct answer
-            if (questions[k].answers[i] === questions[k].correctAnswer) {
-            console.log("true");
-            return true;        
-    }}};
+//for each quiz question run assign correct
+for  (var k = 0; k < questions.length; k++) {
+    assignCorrect();
+}
 
-
-
+//assign the 'correct' value to the right answer
+function assignCorrect() {
+    // for each possible answer
+    for (var i = 0; i < questions[k].answers.length; i++) {
+        // if the quiz answer is the same as the correct answer
+        if (questions[k].answers[i] === questions[k].correctAnswer) {
+        console.log("true");
+        return true;        
+        }
+    }      
+}
 //start the game when you click the start button
 startButton.addEventListener("click" , startGame);
 
@@ -70,10 +69,11 @@ answerButtons.addEventListener("click", function(event) {
     //add 1 to currentQuestionIndex and run nextQuestion
     currentQuestionIndex++;
     nextQuestion();
-}});
+    }
+});
 
 
-//set start game function  
+//set start game function  x
 function startGame(){
     //make start menu clear and first quiz question appear
     startMenu.classList.add("hide");
@@ -81,14 +81,12 @@ function startGame(){
     //change current question index to 0 and run nextQuestion
     currentQuestionIndex = 0;
     nextQuestion();
-};
-
+}
 //for each question...
 function nextQuestion () {
     //run ShowQuestion for the current question index
     showQuestion(currentQuestionIndex);
-};
-
+}
 //propogate the question items
 function showQuestion () {
     //run resetState function(removing current buttons)
@@ -104,30 +102,31 @@ function showQuestion () {
         button.classList.add("btn");
         //add it in our buttons div
         answerButtons.appendChild(button);
-
-        if (questions[currentQuestionIndex].answers === questions[currentQuestionIndex].correctAnswer){
-        button.setAttribute(value,true);
-        };
+        button.setAttribute('value', questions[currentQuestionIndex].answers[i]);
         //make it so when the button is clicked, the form runs a chooseAnswer function
-        button.addEventListener("click", chooseAnswer());
-        };
-    };
-
+        button.addEventListener("click", chooseAnswer);
+    }
+}
 //this removes our current buttons so the new buttons can line up after
 function resetState() {
     while (answerButtons.firstChild) {
         answerButtons.removeChild(answerButtons.firstChild);
-    };
-};
-
-function chooseAnswer() {
+    }
+}
+function chooseAnswer(event) {
+    console.log(event.target);
+    var button = event.target;
     if (button) {
         var choseCorrect = document.createElement("p");
-        choseCorrect.innerText="Correct!";
-        rightWrong.appendChild(choseCorrect);
-        console.log("working?");    
-}};
-
+        if (button.value === questions[currentQuestionIndex].correctAnswer) {
+            choseCorrect.innerText = "Correct!";
+            rightWrong.appendChild(choseCorrect);
+            console.log("working?");
+        } else {
+            // subtract 15 seconds
+        }
+    }
+}
 
 
 
