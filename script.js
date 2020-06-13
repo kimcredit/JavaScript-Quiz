@@ -29,7 +29,6 @@ function quizQuestions (question, answers, correctAnswer) {
     this.answers = answers;
     this.correctAnswer = correctAnswer;
 }
-
 //create an array that holds different quiz questions within the created quizQuestion function
 var questions = [
     new quizQuestions ("Commonly used data types DO NOT include:",["01. strings", "02. booleans", "03. alerts","04. numbers"], "03. alerts"),
@@ -37,41 +36,10 @@ var questions = [
     new quizQuestions ("Arrays in Javascript can be used to store _____", ["01. numbers and strings", "02. other arrays", "03. numbers","04. all of the above"], "04. all of the above"),
     new quizQuestions ("String values must be enclosed within _____ when being assigned to variables.",["01. commas", "02. curly brackets", "03. quotes","04. parenthesis"], "02. curly brackets"),
     new quizQuestions ("A very useful tool used during development and debugging for printing content to the debugger is:",["01. JavaScript", "02. terminal/bash", "03. for loops","04. console.log"], "04. console.log"),
-    ];
+];
 
-
-// Assigning correct answers 
-
-//for each quiz question run assign correct
-for  (var k = 0; k < questions.length; k++) {
-    assignCorrect();
-}
-
-//assign the 'correct' value to the right answer
-function assignCorrect() {
-    // for each possible answer
-    for (var i = 0; i < questions[k].answers.length; i++) {
-        // if the quiz answer is the same as the correct answer
-        if (questions[k].answers[i] === questions[k].correctAnswer) {
-        console.log("true");
-        return true;        
-        }
-    }      
-}
 //start the game when you click the start button
 startButton.addEventListener("click" , startGame);
-
-//move to the next question when any button in the answer buttons are clicked
-answerButtons.addEventListener("click", function(event) {
-    var element = event.target;
-    //if that element is a button
-    if (element.matches("button") === true) {
-    //add 1 to currentQuestionIndex and run nextQuestion
-    currentQuestionIndex++;
-    nextQuestion();
-    }
-});
-
 
 //set start game function  x
 function startGame(){
