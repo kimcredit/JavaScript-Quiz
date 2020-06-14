@@ -1,15 +1,61 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/*tags*/
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+header {
+    padding: 25px;
+    padding-bottom: 45px;
+    background-color: rgb(63, 125, 144);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+/*Header Elements*/
+
+#high-scores {
+    float: left;
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+#high-scores:hover {
+   color: rgba(72, 72, 72, 0.75);
+}
+
+#countdown {
+    float: right;
+    color: white;
+    font-size: 20px;
+}
+
+/*Header Elements*/
+
 main {
     padding: 0;
     margin: 0;
-    margin-top: 200px;
+    margin-top: 175px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 .container {
-    padding: 30px;
+    padding: 40px;
     margin: 30px;
     text-align: center;
     width: 600px;
@@ -21,17 +67,8 @@ main {
     float: left;
 }
 
-.hide {
-    display: none;
-}
-
-#buttons {
-    display: grid;
-    gap: 10px;
-}
-
 .btn {
-    background-color: rgb(69, 111, 160);
+    background-color: rgb(177, 78, 110);
     color: white;
     font-size: 16px;
     border:none;
@@ -39,6 +76,11 @@ main {
     padding: 5px;
     padding-left: 20px;
     padding-right: 20px;
+    margin: 5px;
+}
+
+.btn:hover {
+    background-color:  rgb(183, 131, 147)
 }
 
 #right-wrong {
@@ -48,4 +90,45 @@ main {
     font-family: Arial, Helvetica, sans-serif;
     font-style: italic;
     color:rgb(158, 173, 179);
+}
+
+.hide {
+    display: none;
+}
+
+/*Starting Form*/
+
+.paragraph-text {
+    padding: 30px;
+}
+
+/*Question Form*/
+
+#buttons {
+    display: grid;
+    gap: 5px;
+}
+
+#question-element {
+    padding-bottom: 20px;
+}
+
+/*End Form*/
+
+#user-score {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#user-input,
+#end-nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+}
+
+#user-initials {
+    width: 180px;
+    height: 20px;
 }

@@ -2,21 +2,23 @@
 <html lang="en">
     <head>
         <title>JavaScript Quiz</title>
+        <link href="reset.css" rel="stylesheet">
         <link href="style.css" rel="stylesheet">
         <script defer src="./script.js"></script>
     </head>
         <body>
             <header>
+                <a id="high-scores" href="highscores.html">High Scores</a>         
                 <h3 id="countdown">Time : 60</h3>
             </header>
             <main>
                 <div class="container">
-                    <div id="start-container" >
+                    <div id="start-container">
                         <h1>Coding Quiz Challenge</h1>
-                        <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect
+                        <p class="paragraph-text">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect
                             answers will penalize your scoretime by ten seconds! 
                         </p>
-                        <button id="start-button">Start Quiz</button>
+                        <button id="start-button" class="btn">Start Quiz</button>
                     </div>
                     <div id="quiz-container" class="hide">
                         <h1 id="question-element">Question:</h1>
@@ -33,11 +35,11 @@
                         <h2 id="user-score"></h2>
                         <div id="user-input">
                             <input id="user-initials"/>
-                            <button id="submit-button" placeholder="(Your Initials)">Submit</button>
+                            <button id="submit-button" class="btn" placeholder="(Your Initials)">Submit</button>
                         </div>
                         <div id="end-nav-buttons">
-                            <button id="restart-quiz">Restart Quiz</button>
-                            <button id="see-high-scores">High Scores List</button>
+                            <button id="restart-quiz" class="btn">Restart Quiz</button>
+                            <button id="see-high-scores" class="btn">High Scores List</button>
                         </div>
                     </div>
                 </div>

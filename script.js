@@ -55,10 +55,15 @@ function timer () {
         currentTime--;
         // if time is 0 or less, make the timer read "time:0" and show the end menu 
         if (currentTime <=0) {
+            clearInterval(tick)
             countDown.innerHTML = ("Time : 0");
             showEndMenu();
         }
         //otherwise the timer should show a current countdown
+        else if (questions.length === (currentQuestionIndex)) {
+            countDown.innerHTML = ("Time : 0"); 
+            return;
+        }
         else {
         countDown.innerHTML = ("Time : " + currentTime);
         }
@@ -77,7 +82,7 @@ function startGame(){
 
 function nextQuestion () {
     //if there are no more questions left...
-    if (questions.length === (currentQuestionIndex)) {                                                  
+    if (questions.length === (currentQuestionIndex)) {                                                 
         //Move to the end menu 
         showEndMenu();    
     }else {
@@ -136,14 +141,18 @@ function chooseAnswer(event) {
     currentQuestionIndex++;
     nextQuestion();
 }
+
 function showEndMenu() {
     quizEl.classList.add("hide");
     endMenu.classList.remove("hide");
     var showScore = (totalScore + "/" + questions.length);
+    console.log(showScore);
     userScore.innerHTML= ("Your Final Score is " + showScore);
     submitInits.addEventListener("click", function addHighScore () {        
         var submitScore = (scoreInput.value + "  " + showScore);
+        console.log(submitScore);
         if (submitScore === "" || scoreInput.length > 3) {
+            console.log(submitScore.length);
             var userChoice = document.createElement("p");
             userChoice.innerText = "Must enter value between 1 and 3 characters";
             rightWrong.appendChild(userChoice);
@@ -151,8 +160,8 @@ function showEndMenu() {
             return;
         } else { 
             highScores.push(submitScore);
-            localStorage.setItem("highScores", JSON.stringify(highScores));
             userInput.classList.add("hide");
+            localStorage.setItem("highScores", JSON.stringify(highScores));
         }
         function disappear (){
             userChoice.remove();
