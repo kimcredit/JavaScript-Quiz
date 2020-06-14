@@ -87,7 +87,7 @@ function nextQuestion () {
         showEndMenu();    
     }else {
         //otherwise run ShowQuestion for the current question index
-        showQuestion(currentQuestionIndex)
+        showQuestion(currentQuestionIndex);
     }
 }
 //propogate the question items
@@ -151,20 +151,19 @@ function showEndMenu() {
     submitInits.addEventListener("click", function addHighScore () {        
         var submitScore = (scoreInput.value + "  " + showScore);
         console.log(submitScore);
-        if (submitScore === "" || scoreInput.length > 3) {
+        if ((submitScore === "") || (scoreInput.length > 3)) {
             console.log(submitScore.length);
-            var userChoice = document.createElement("p");
-            userChoice.innerText = "Must enter value between 1 and 3 characters";
-            rightWrong.appendChild(userChoice);
+            var error = document.createElement("p");
+            error.innerText = "Must enter value between 1 and 3 characters";
+            rightWrong.appendChild(error);
             window.setTimeout(disappear, 2000);
             return;
         } else { 
             highScores.push(submitScore);
             userInput.classList.add("hide");
             localStorage.setItem("highScores", JSON.stringify(highScores));
-        }
-        function disappear (){
-            userChoice.remove();
+        }function disappear (){
+            error.remove();
         }
     });
     // restartButton.addEventListener("click",quizRestart);
