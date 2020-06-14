@@ -46,16 +46,22 @@ var currentTime = 60;
 //start the game when you click the start button
 startButton.addEventListener("click" , startGame);
 
-
+//set countdown
 function timer () {
+    //set countdown interval to 1 second
     var tick = setInterval(startTimer, 1000);
     function startTimer() {
+        //decrease by 1 unit
         currentTime--;
+        // if time is 0 or less, make the timer read "time:0" and show the end menu 
         if (currentTime <=0) {
-            clearInterval(tick);
-            return;
+            countDown.innerHTML = ("Time : 0");
+            showEndMenu();
         }
-        countDown.innerHTML = currentTime;
+        //otherwise the timer should show a current countdown
+        else {
+        countDown.innerHTML = ("Time : " + currentTime);
+        }
     }
 }
 //set start game function  
@@ -71,10 +77,8 @@ function startGame(){
 
 function nextQuestion () {
     //if there are no more questions left...
-    if (questions.length === (currentQuestionIndex)) {                                                  //or it the timer runs out!
+    if (questions.length === (currentQuestionIndex)) {                                                  
         //Move to the end menu 
-        quizEl.classList.add("hide");
-        endMenu.classList.remove("hide");
         showEndMenu();    
     }else {
         //otherwise run ShowQuestion for the current question index
@@ -124,6 +128,7 @@ function chooseAnswer(event) {
         //Subtract 1 from the user's score
         totalScore = (totalScore - 1);
         // subtract 15 seconds
+        currentTime = (currentTime - 10);
     }
     function disappear (){
         userChoice.remove();
@@ -132,10 +137,11 @@ function chooseAnswer(event) {
     nextQuestion();
 }
 function showEndMenu() {
+    quizEl.classList.add("hide");
+    endMenu.classList.remove("hide");
     var showScore = (totalScore + "/" + questions.length);
     userScore.innerHTML= ("Your Final Score is " + showScore);
-    scoreInput.setAttribute("placeholder", "(your initials)");
-    submitInits.addEventListener("click", function addHighScore () {        //add highscores to local storage
+    submitInits.addEventListener("click", function addHighScore () {        
         var submitScore = (scoreInput.value + "  " + showScore);
         if (submitScore === "" || scoreInput.length > 3) {
             var userChoice = document.createElement("p");
@@ -152,8 +158,8 @@ function showEndMenu() {
             userChoice.remove();
         }
     });
-    restartButton.addEventListener("click",quizRestart);
-    seeHighScoresButton.addEventListener("click",seeHighScores);
+    // restartButton.addEventListener("click",quizRestart);
+    // seeHighScoresButton.addEventListener("click",seeHighScores);
 }
 
 
