@@ -41,6 +41,15 @@ var questions = [
 //start the game when you click the start button
 startButton.addEventListener("click" , startGame);
 
+answerButtons.addEventListener("click", function(event) {
+    var element = event.target;
+    //if that element is a button
+    if (element.matches("button") === true) {
+    //add 1 to currentQuestionIndex and run nextQuestion
+    currentQuestionIndex++;
+    nextQuestion();
+    }
+});
 //set start game function  
 function startGame(){
     //make start menu clear and first quiz question appear
@@ -62,7 +71,7 @@ function showQuestion () {
     //change the inner text of the question element to the current question
     questionEL.innerText = questions[currentQuestionIndex].question;
     //for each possible answer
-    for (var i = 0; i < questions[currentQuestionIndex].answers.length+1; i++) {
+    for (var i = 0; i < questions[currentQuestionIndex].answers.length; i++) {
         //make a button, change the inner text of the button to be an answer
         var button = document.createElement("button");
         button.innerText = questions[currentQuestionIndex].answers[i];
@@ -84,8 +93,6 @@ function resetState() {
 }
 function chooseAnswer(event) {
     console.log(event.target);
-    currentQuestionIndex++;
-    console.log(currentQuestionIndex);
     var button = event.target; 
     if (button.value === questions[currentQuestionIndex].correctAnswer) {
         var userChoice = document.createElement("p");
@@ -101,10 +108,10 @@ function chooseAnswer(event) {
     function disappear (){
         userChoice.remove();
     }
-    if (questions.length === (currentQuestionIndex + 1)) {
-        quizEl.classList.add("hide");
-        endMenu.classList.remove("hide");
-    }
+    // if (questions.length === (currentQuestionIndex + 1)) {
+    //     quizEl.classList.add("hide");
+    //     endMenu.classList.remove("hide");
+    // }
 }
 
 
