@@ -7,7 +7,7 @@
     </head>
         <body>
             <header>
-                <h3 id="count-down">60</h3>
+                <h3 id="countdown">60</h3>
             </header>
             <main>
                 <div class="container">
@@ -26,12 +26,18 @@
                             <button class="btn">Option 02</button>
                             <button class="btn">Option 03</button>
                             <button class="btn">Option 04</button>
+                        </div>
                     </div>
-                        <div id="end-container" class="hide">
+                    <div id="end-container" class="hide">
                         <h1>All Done!</h1>
-                        <h2 id="user-score">Final User Score</h2>
-                        <input id="user-initials" placeholder="initials"> </input>
-                        <button id="submit-button">Submit</button>
+                        <h2 id="user-score"></h2>
+                        <div id="user-input">
+                            <input id="user-initials"/>
+                            <button id="submit-button">Submit</button>
+                        </div>
+                        <div id="end-nav-buttons">
+                            <button id="restart-quiz">Restart Quiz</button>
+                            <button id="see-high-scores">High Scores List</button>
                         </div>
                     </div>
                 </div>

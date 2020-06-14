@@ -9,19 +9,18 @@ var answerButtons = document.getElementById("buttons");
 
 //get end menu elements from page 
 var endMenu = document.getElementById("end-container");
+var userInput = document.getElementById("user-input");
+var userScore = document.getElementById("user-score");
 var scoreInput = document.getElementById("user-initials");
 var submitInits = document.getElementById("submit-button");
+var restartButton = document.getElementById("restart-quiz");
+var seeHighScoresButton = document.getElementById("high-scores-button");
 
 //get right-wrong from page
 var rightWrong = document.getElementById("right-wrong");
 
-//timer variables
-
-
-//stored variables 
-var userScoreTotal= 0;
-var highScores = [];
-var currentQuestionIndex = 0;
+//countdown elements
+var countDown = document.getElementById("countdown");
 
 //create a function that holds the quiz questions, user options, and the correct answer
 function quizQuestions (question, answers, correctAnswer) {
@@ -38,18 +37,27 @@ var questions = [
     new quizQuestions ("A very useful tool used during development and debugging for printing content to the debugger is:",["01. JavaScript", "02. terminal/bash", "03. for loops","04. console.log"], "04. console.log"),
 ];
 
+//stored variables 
+var totalScore = (questions.length);
+var highScores = [];
+var currentQuestionIndex = 0;
+var currentTime = 60;
+
 //start the game when you click the start button
 startButton.addEventListener("click" , startGame);
 
-answerButtons.addEventListener("click", function(event) {
-    var element = event.target;
-    //if that element is a button
-    if (element.matches("button") === true) {
-    //add 1 to currentQuestionIndex and run nextQuestion
-    currentQuestionIndex++;
-    nextQuestion();
+
+function timer () {
+    var tick = setInterval(startTimer, 1000);
+    function startTimer() {
+        currentTime--;
+        if (currentTime <=0) {
+            clearInterval(tick);
+            return;
+        }
+        countDown.innerHTML = currentTime;
     }
-});
+}
 //set start game function  
 function startGame(){
     //make start menu clear and first quiz question appear
@@ -58,11 +66,20 @@ function startGame(){
     //change current question index to 0 and run nextQuestion
     currentQuestionIndex = 0;
     nextQuestion();
+    timer();
 }
-//for each question...
+
 function nextQuestion () {
-    //run ShowQuestion for the current question index
-    showQuestion(currentQuestionIndex);
+    //if there are no more questions left...
+    if (questions.length === (currentQuestionIndex)) {                                                  //or it the timer runs out!
+        //Move to the end menu 
+        quizEl.classList.add("hide");
+        endMenu.classList.remove("hide");
+        showEndMenu();    
+    }else {
+        //otherwise run ShowQuestion for the current question index
+        showQuestion(currentQuestionIndex)
+    }
 }
 //propogate the question items
 function showQuestion () {
@@ -99,19 +116,44 @@ function chooseAnswer(event) {
         userChoice.innerText = "Correct!";
         rightWrong.appendChild(userChoice);
         window.setTimeout(disappear, 1000);
-    } else {var userChoice = document.createElement("p");
-        userChoice.innerText ="Wrong!"
+    } else {
+        var userChoice = document.createElement("p");
+        userChoice.innerText ="Wrong!";
         rightWrong.appendChild(userChoice);
         window.setTimeout(disappear, 1000);
+        //Subtract 1 from the user's score
+        totalScore = (totalScore - 1);
         // subtract 15 seconds
     }
     function disappear (){
         userChoice.remove();
     }
-    // if (questions.length === (currentQuestionIndex + 1)) {
-    //     quizEl.classList.add("hide");
-    //     endMenu.classList.remove("hide");
-    // }
+    currentQuestionIndex++;
+    nextQuestion();
+}
+function showEndMenu() {
+    var showScore = (totalScore + "/" + questions.length);
+    userScore.innerHTML= ("Your Final Score is " + showScore);
+    scoreInput.setAttribute("placeholder", "(your initials)");
+    submitInits.addEventListener("click", function addHighScore () {        //add highscores to local storage
+        var submitScore = (scoreInput.value + "  " + showScore);
+        if (submitScore === "" || scoreInput.length > 3) {
+            var userChoice = document.createElement("p");
+            userChoice.innerText = "Must enter value between 1 and 3 characters";
+            rightWrong.appendChild(userChoice);
+            window.setTimeout(disappear, 2000);
+            return;
+        } else { 
+            highScores.push(submitScore);
+            localStorage.setItem("highScores", JSON.stringify(highScores));
+            userInput.classList.add("hide");
+        }
+        function disappear (){
+            userChoice.remove();
+        }
+    });
+    restartButton.addEventListener("click",quizRestart);
+    seeHighScoresButton.addEventListener("click",seeHighScores);
 }
 
 
@@ -120,11 +162,55 @@ function chooseAnswer(event) {
 
 
 
+//storing highscores: 
+
+// function storehighscores() {
+//     // Stringify and set "todos" key in localStorage to todos array
+//     localStorage.setItem("highScores", JSON.stringify(H=highScores));
+//   }
+  
 
 
 
+                                                                             // Parsing the JSON string to an object
+//   function init() {
+//   var storedHighScores = JSON.parse(localStorage.getItem("highScores"));
+// if (storedHighScores !== null) {
+//     highScores = storedHighScores;
+//   }
+
+//   // Render todos to the DOM
+//   renderTodos();
+// }
 
 
+
+// function storeHighScores() {
+//     // Stringify and set "todos" key in localStorage to todos array
+//     localStorage.setItem("highScores", JSON.stringify(highScores));
+//   }
+  
+//   // When form is submitted...
+//   todoForm.addEventListener("submit", function(event) {
+//     event.preventDefault();
+  
+//     var todoText = todoInput.value.trim();
+  
+//     // Return from function early if submitted todoText is blank
+//     if (todoText === "") {
+//       return;
+//     }
+
+// var countDown = document.getElementById("countdown");
+
+
+
+  //Do code for showing the number of seconds here
+
+//When a key is pressed in the text area, update the timer using myFunction
+
+ //If seconds are equal or greater than 0, countdown until 1 minute has passed
+//Else, clear the timer and alert user of how many words they type per minute
 
 
 
