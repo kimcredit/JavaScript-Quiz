@@ -21,7 +21,7 @@ var rightWrong = document.getElementById("right-wrong");
 //stored variables 
 var userScoreTotal= 0;
 var highScores = [];
-var currentQuestionIndex;
+var currentQuestionIndex = 0;
 
 //create a function that holds the quiz questions, user options, and the correct answer
 function quizQuestions (question, answers, correctAnswer) {
@@ -41,7 +41,7 @@ var questions = [
 //start the game when you click the start button
 startButton.addEventListener("click" , startGame);
 
-//set start game function  x
+//set start game function  
 function startGame(){
     //make start menu clear and first quiz question appear
     startMenu.classList.add("hide");
@@ -62,7 +62,7 @@ function showQuestion () {
     //change the inner text of the question element to the current question
     questionEL.innerText = questions[currentQuestionIndex].question;
     //for each possible answer
-    for (var i = 0; i < questions[currentQuestionIndex].answers.length; i++) {
+    for (var i = 0; i < questions[currentQuestionIndex].answers.length+1; i++) {
         //make a button, change the inner text of the button to be an answer
         var button = document.createElement("button");
         button.innerText = questions[currentQuestionIndex].answers[i];
@@ -73,6 +73,7 @@ function showQuestion () {
         button.setAttribute('value', questions[currentQuestionIndex].answers[i]);
         //make it so when the button is clicked, the form runs a chooseAnswer function
         button.addEventListener("click", chooseAnswer);
+        console.log(currentQuestionIndex);
     }
 }
 //this removes our current buttons so the new buttons can line up after
@@ -83,31 +84,28 @@ function resetState() {
 }
 function chooseAnswer(event) {
     console.log(event.target);
-    var button = event.target;
-    if (button) {
-        var choseCorrect = document.createElement("p");
-        if (button.value === questions[currentQuestionIndex].correctAnswer) {
-            choseCorrect.innerText = "Correct!";
-            rightWrong.appendChild(choseCorrect);
-            console.log("working?");
-        } else {
-            // subtract 15 seconds
-        }
+    currentQuestionIndex++;
+    console.log(currentQuestionIndex);
+    var button = event.target; 
+    if (button.value === questions[currentQuestionIndex].correctAnswer) {
+        var userChoice = document.createElement("p");
+        userChoice.innerText = "Correct!";
+        rightWrong.appendChild(userChoice);
+        window.setTimeout(disappear, 1000);
+    } else {var userChoice = document.createElement("p");
+        userChoice.innerText ="Wrong!"
+        rightWrong.appendChild(userChoice);
+        window.setTimeout(disappear, 1000);
+        // subtract 15 seconds
+    }
+    function disappear (){
+        userChoice.remove();
+    }
+    if (questions.length === (currentQuestionIndex + 1)) {
+        quizEl.classList.add("hide");
+        endMenu.classList.remove("hide");
     }
 }
-
-
-
-
-// // close the div in 5 secs
-// window.setTimeout("closeHelpDiv();", 5000);
-
-// function closeHelpDiv(){
-// document.getElementById("helpdiv").style.display=" none";
-// }
-
-
-
 
 
 
