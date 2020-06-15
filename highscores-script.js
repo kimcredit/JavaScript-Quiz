@@ -8,21 +8,15 @@ function renderHighScores () {
     //for every high score 
     for (var i = 0; i < highScores.length; i++) {
         //remove placeholder spots from the bottom
-        // highScoresList.removeChild(highScoresList.lastElementChild);
-        //create a table row and set its data index
+        highScoresList.removeChild(highScoresList.lastElementChild);
         var highScore = highScores[i];
-        
+        //create a list item
         var li = document.createElement("li");
         li.setAttribute("data-index", i);
-        
-        //make a table data element and give it the high score text
+        //assign the list item the high score
         li.textContent = highScore;
-        console.log(li);
-       
-        //add the table data element to the table row  
-        
-        //add the table row to the highscores list starting at the top
-        highScoresList.appendChild(li);
+        //add the list item to the highscores list starting at the top
+        highScoresList.insertBefore(li, highScoresList.childNodes[0]);
     }
 }
 

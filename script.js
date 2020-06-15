@@ -18,7 +18,7 @@ var userScore = document.getElementById("user-score");
 var scoreInput = document.getElementById("user-initials");
 var submitInits = document.getElementById("submit-button");
 var restartButton = document.getElementById("restart-quiz");
-var seeHighScoresButton = document.getElementById("high-scores-button");
+var seeHighScoresButton = document.getElementById("see-high-scores");
 
 //Right-wrong elements
 var rightWrong = document.getElementById("right-wrong");
@@ -183,6 +183,7 @@ function submitInitials() {
             rightWrong.appendChild(error);
             //the warning disappears after two seconds and the user needs to resubmit their initials
             window.setTimeout(disappear, 2000);
+            scoreInput.value = "";
             return;
         //if the users submission meets the criteria, their initials are added to the highscores array, and the input box disappears so they can't try and submit again
         }else {
@@ -190,11 +191,12 @@ function submitInitials() {
             scoreInput.value = "";
             scoreInput.classList.add("hide");
             submitInits.classList.add("hide");
-            getList();
+            console.log(highScores);
             storeList();
+            getList();
         }
         function disappear () {
-            error.remove();
+        error.remove();
         }
     });
     restartButton.addEventListener("click", resetQuiz);
@@ -210,12 +212,9 @@ function resetQuiz() {
     currentQuestionIndex = 0;
     currentTime = 60;
 }
-
 function switchPage () {
     window.location.href = 'highscores.html';
 }
-
-
 function getList() {
     // Get stored scores from localStorage
     // Parsing the JSON string to an object
@@ -224,40 +223,9 @@ function getList() {
     if (storedHighScores !== null) {
       highScores = storedHighScores;
     }
-    // Render high scores to the DOM
-    // renderHighScores();
 }
-
-      
 function storeList() {
     // Stringify and set "high-scores" key in localStorage to highScores array
     localStorage.setItem("high-scores", JSON.stringify(highScores));
 }
 
-
-
-
-
-//highscores list
-
-
-// //show high scores list
-// function renderHighScores () {
-//     //for every high score 
-//     for (var i = 0; i < highScores.length; i++) {
-//         //remove placeholder spots from the bottom
-//         highScoresList.removeChild(highScoresList.lastChild);
-//         //create a table row and set its data index
-//         var highScore = highScores[i];
-//         var row = document.getElementsByClassName("row");
-//         var tr = document.createElement("tr");
-//         tr.setAttribute("data-index", i);
-//         //make a table data element and give it the high score text
-//         var td = document.createElement("td");
-//         td.textContent = highScore;
-//         //add the table data element to the table row  
-//         tr.appendChild(td);
-//         //add the table row to the highscores list starting at the top
-//         highScoresList.insertBefore(tr, row[0]);
-//     }
-// }
