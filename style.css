@@ -26,7 +26,7 @@ h2 {
 
 /*Header Elements*/
 
-#high-scores,
+#high-scores-link,
 #back-to-quiz {
     float: left;
     color: white;
@@ -34,7 +34,7 @@ h2 {
     font-size: 20px;
 }
 
-#high-scores:hover,
+#high-scores-link:hover,
 #back-to-quiz:hover {
    color: rgba(72, 72, 72, 0.75);
 }
@@ -140,3 +140,33 @@ main {
 .gone {
     display: none;
 }
+
+/* Highscores */
+
+.high-score-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 5px;
+}
+
+#high-score-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px;
+    color: black;
+}
+
+#high-scores-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    padding-top: 10px;
+}
+
+td {
+    padding: 5px;
+}
+
