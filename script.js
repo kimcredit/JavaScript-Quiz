@@ -42,26 +42,35 @@ var totalScore = (questions.length);
 var highScores = [];
 var currentQuestionIndex = 0;
 var currentTime = 60;
+var tick;
+var timer_is_on = 0;
 
 //start the game when you click the start button
 startButton.addEventListener("click" , startGame);
 
-//set countdown
-function timer () {
-    //set countdown interval to 1 second
-    var tick = setInterval(startTimer, 1000);
-    function startTimer() {
-        //decrease by 1 unit
-        currentTime--;
-        // if time is 0 or less, make the timer read "time:0" and show the end menu 
-        if (currentTime <= 0) {
-            showEndMenu();
-            return;
-        }
-        else {
-        countDown.innerHTML = ("Time : " + currentTime);
-        }
+//timer function
+function timedCount() {
+    currentTime--;
+    countDown.value = currentTime;
+    countDown.innerHTML = ("Time : " + currentTime);
+    if (currentTime <= 0) {
+        stopTimer();
+        showEndMenu();
     }
+}
+//start timer and set interval
+function startTimer() {
+  if (!timer_is_on) {
+    timer_is_on = 1;
+    tick = setInterval(timedCount, 1000);
+    timedCount();
+  }
+}
+//stop timer and clear interval
+function stopTimer() {
+  clearInterval(tick);
+  timer_is_on = 0;
+  countDown.innerHTML = ("Time : 0");
 }
 
 //set start game function  
@@ -72,14 +81,14 @@ function startGame(){
     //change current question index to 0 and run nextQuestion
     currentQuestionIndex = 0;
     nextQuestion();
-    timer();
+    startTimer();
 }
-
 function nextQuestion () {
     //if there are no more questions left...
     if (questions.length === (currentQuestionIndex)) {                                                 
-        //Move to the end menu 
+        //Move to the end menu and stop the timer
         showEndMenu();    
+        stopTimer()
     } else {
         //otherwise run ShowQuestion for the current question index
         showQuestion(currentQuestionIndex);
@@ -138,16 +147,14 @@ function chooseAnswer(event) {
     currentQuestionIndex++;
     nextQuestion();
 }
-
-
+//hide the quiz and show the end menu
 function showEndMenu() {
-    countDown.classList.add("hide");
-    //hide the quiz and show the end menu
     quizEl.classList.add("hide");
+    scoreInput.classList.remove("hide");
+    submitInits.classList.remove("hide");
     endMenu.classList.remove("hide");   
     submitInitials();
 }
-
 function submitInitials() {
      //make the user score show up in the end menu
     var showScore = (totalScore + "/" + questions.length);
@@ -167,15 +174,17 @@ function submitInitials() {
         }else {
             highScores.push(submitScore);
             localStorage.setItem("highScores", JSON.stringify(highScores));
-            while (userInput.firstChild) {
-                userInput.removeChild(userInput.firstChild);
-            }
+            // while (userInput.firstChild) {
+            //     userInput.removeChild(userInput.firstChild);
+            // }
+            scoreInput.classList.add("hide");
+           submitInits.classList.add("hide");
         }
         function disappear () {
             error.remove();
         }
     });
-
+    restartButton.addEventListener("click", resetQuiz);
 }
 
 
