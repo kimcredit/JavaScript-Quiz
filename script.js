@@ -1,3 +1,7 @@
+//pages 
+var mainPage = document.getElementById("main-page");
+var hsPage = document.getElementById("hs-page");
+
 //Start menu elements
 var startMenu = document.getElementById("start-container");
 var startButton = document.getElementById("start-button");
@@ -40,6 +44,8 @@ var questions = [
     new quizQuestions ("A very useful tool used during development and debugging for printing content to the debugger is:",["01. JavaScript", "02. terminal/bash", "03. for loops","04. console.log"], "04. console.log"),
 ];
 
+
+
 //stored variables 
 var totalScore = (questions.length);
 var highScores = [];
@@ -47,6 +53,8 @@ var currentQuestionIndex = 0;
 var currentTime = 60;
 var tick;
 var timer_is_on = 0;
+
+
 
 //start the game when you click the start button
 startButton.addEventListener("click" , startGame);
@@ -63,17 +71,17 @@ function timedCount() {
 }
 //start timer and set interval
 function startTimer() {
-  if (!timer_is_on) {
+if (!timer_is_on) {
     timer_is_on = 1;
     tick = setInterval(timedCount, 1000);
     timedCount();
-  }
+}
 }
 //stop timer and clear interval
 function stopTimer() {
-  clearInterval(tick);
-  timer_is_on = 0;
-  countDown.innerHTML = ("Time : 0");
+clearInterval(tick);
+timer_is_on = 0;
+countDown.innerHTML = ("Time : 0");
 }
 
 //set start game function  
@@ -159,11 +167,13 @@ function showEndMenu() {
     submitInitials();
 }
 function submitInitials() {
-     //make the user score show up in the end menu
+    //make the user score show up in the end menu
     var showScore = (totalScore + "/" + questions.length);
     userScore.innerHTML= ("Your Final Score is " + showScore);
     //the user submits their initials
-    submitInits.addEventListener("click", function addHighScore () {       
+    submitInits.addEventListener("click", function addHighScore (event) {   
+        event.preventDefault();
+
         var submitScore = (scoreInput.value + "  " + showScore);
         //if the user's submission is empty or is too long, an error message appears
         if ((scoreInput.value === "") || (scoreInput.value.length > 3)) {
@@ -176,12 +186,12 @@ function submitInitials() {
             return;
         //if the users submission meets the criteria, their initials are added to the highscores array, and the input box disappears so they can't try and submit again
         }else {
-            console.log(submitScore);
             highScores.push(submitScore);
+            scoreInput.value = "";
             scoreInput.classList.add("hide");
             submitInits.classList.add("hide");
-            storeList();
             getList();
+            storeList();
         }
         function disappear () {
             error.remove();
@@ -189,46 +199,19 @@ function submitInitials() {
     });
     restartButton.addEventListener("click", resetQuiz);
 }
-
 //hide the end menu and show the start menu
 function resetQuiz() {
     endMenu.classList.add("hide");
     startMenu.classList.remove("hide");
     //reset the timer to say 60 seconds
     countDown.innerHTML = ("Time : 60");
+    totalScore = (questions.length);
+    currentQuestionIndex = 0;
+    currentTime = 60;
 }
 
 
 
-
-
-
-
-
-
-//highscores list
-
-
-//show high scores list
-function renderHighScores () {
-    //for every high score 
-    for (var i = 0; i < highScores.length; i++) {
-        //remove placeholder spots from the bottom
-        highScoresList.removeChild(highScoresList.lastChild);
-        //create a table row and set its data index
-        var highScore = highScores[i];
-        var row = document.getElementsByClassName("row");
-        var tr = document.createElement("tr");
-        tr.setAttribute("data-index", i);
-        //make a table data element and give it the high score text
-        var td = document.createElement("td");
-        td.textContent = highScore;
-        //add the table data element to the table row  
-        tr.appendChild(td);
-        //add the table row to the highscores list starting at the top
-        highScoresList.insertBefore(tr, row[0]);
-    }
-}
 function getList() {
     // Get stored scores from localStorage
     // Parsing the JSON string to an object
@@ -238,9 +221,39 @@ function getList() {
       highScores = storedHighScores;
     }
     // Render high scores to the DOM
-    renderHighScores();
-  }
-  function storeList() {
+    // renderHighScores();
+}
+
+      
+function storeList() {
     // Stringify and set "high-scores" key in localStorage to highScores array
     localStorage.setItem("high-scores", JSON.stringify(highScores));
-  }
+}
+
+
+
+
+
+//highscores list
+
+
+// //show high scores list
+// function renderHighScores () {
+//     //for every high score 
+//     for (var i = 0; i < highScores.length; i++) {
+//         //remove placeholder spots from the bottom
+//         highScoresList.removeChild(highScoresList.lastChild);
+//         //create a table row and set its data index
+//         var highScore = highScores[i];
+//         var row = document.getElementsByClassName("row");
+//         var tr = document.createElement("tr");
+//         tr.setAttribute("data-index", i);
+//         //make a table data element and give it the high score text
+//         var td = document.createElement("td");
+//         td.textContent = highScore;
+//         //add the table data element to the table row  
+//         tr.appendChild(td);
+//         //add the table row to the highscores list starting at the top
+//         highScoresList.insertBefore(tr, row[0]);
+//     }
+// }
