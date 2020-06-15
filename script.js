@@ -23,11 +23,11 @@ var seeHighScoresButton = document.getElementById("high-scores-button");
 //Right-wrong elements
 var rightWrong = document.getElementById("right-wrong");
 
+//Highscores elements
+var highScoresList = document.getElementById("high-scores-list");
+
 //Countdown elements
 var countDown = document.getElementById("countdown");
-
-//Highscores elements
-var highScoresList = document.getElementById("high-scores");
 
 //create a function that holds the quiz questions, user options, and the correct answer
 function quizQuestions (question, answers, correctAnswer) {
@@ -186,7 +186,7 @@ function submitInitials() {
             return;
         //if the users submission meets the criteria, their initials are added to the highscores array, and the input box disappears so they can't try and submit again
         }else {
-            highScores.push(submitScore);
+            highScores.unshift(submitScore);
             scoreInput.value = "";
             scoreInput.classList.add("hide");
             submitInits.classList.add("hide");
@@ -198,6 +198,7 @@ function submitInitials() {
         }
     });
     restartButton.addEventListener("click", resetQuiz);
+    seeHighScoresButton.addEventListener("click",switchPage)
 }
 //hide the end menu and show the start menu
 function resetQuiz() {
@@ -210,6 +211,9 @@ function resetQuiz() {
     currentTime = 60;
 }
 
+function switchPage () {
+    window.location.href = 'highscores.html';
+}
 
 
 function getList() {

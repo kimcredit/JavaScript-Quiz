@@ -159,14 +159,14 @@ main {
 }
 
 #high-scores-list {
-    display: flex;
     justify-content: center;
     align-items: center;
     color: black;
     padding-top: 10px;
 }
 
-td {
+li {
+    display: box;
     padding: 5px;
 }
 
