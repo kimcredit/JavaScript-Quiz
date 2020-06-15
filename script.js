@@ -54,14 +54,8 @@ function timer () {
         //decrease by 1 unit
         currentTime--;
         // if time is 0 or less, make the timer read "time:0" and show the end menu 
-        if (currentTime <=0) {
-            clearInterval(tick)
-            countDown.innerHTML = ("Time : 0");
+        if (currentTime <= 0) {
             showEndMenu();
-        }
-        //otherwise the timer should show a current countdown
-        else if (questions.length === (currentQuestionIndex)) {
-            countDown.innerHTML = ("Time : 0"); 
             return;
         }
         else {
@@ -69,6 +63,7 @@ function timer () {
         }
     }
 }
+
 //set start game function  
 function startGame(){
     //make start menu clear and first quiz question appear
@@ -85,7 +80,7 @@ function nextQuestion () {
     if (questions.length === (currentQuestionIndex)) {                                                 
         //Move to the end menu 
         showEndMenu();    
-    }else {
+    } else {
         //otherwise run ShowQuestion for the current question index
         showQuestion(currentQuestionIndex);
     }
@@ -142,189 +137,44 @@ function chooseAnswer(event) {
     nextQuestion();
 }
 
+
 function showEndMenu() {
+    countDown.classList.add("hide");
+    //hide the quiz and show the end menu
     quizEl.classList.add("hide");
-    endMenu.classList.remove("hide");
+    endMenu.classList.remove("hide");   
+    submitInitials();
+}
+
+function submitInitials() {
+     //make the user score show up in the end menu
     var showScore = (totalScore + "/" + questions.length);
     console.log(showScore);
     userScore.innerHTML= ("Your Final Score is " + showScore);
-    submitInits.addEventListener("click", function addHighScore () {        
+    submitInits.addEventListener("click", function addHighScore () {       
         var submitScore = (scoreInput.value + "  " + showScore);
-        console.log(submitScore);
-        if ((submitScore === "") || (scoreInput.length > 3)) {
-            console.log(submitScore.length);
+        if ((scoreInput.value === "") || (scoreInput.value.length > 3)) {
             var error = document.createElement("p");
             error.innerText = "Must enter value between 1 and 3 characters";
             rightWrong.appendChild(error);
+            //the warning disappears after two seconds and the user needs to resubmit their initials
             window.setTimeout(disappear, 2000);
             return;
-        } else { 
+        }else {
+            console.log(submitScore);
             highScores.push(submitScore);
-            userInput.classList.add("hide");
             localStorage.setItem("highScores", JSON.stringify(highScores));
-        }function disappear (){
+            while (userInput.firstChild) {
+                userInput.removeChild(userInput.firstChild);
+            }
+        }
+        function disappear () {
             error.remove();
         }
     });
-    // restartButton.addEventListener("click",quizRestart);
-    // seeHighScoresButton.addEventListener("click",seeHighScores);
+
 }
 
 
 
 
-
-
-
-//storing highscores: 
-
-// function storehighscores() {
-//     // Stringify and set "todos" key in localStorage to todos array
-//     localStorage.setItem("highScores", JSON.stringify(H=highScores));
-//   }
-  
-
-
-
-                                                                             // Parsing the JSON string to an object
-//   function init() {
-//   var storedHighScores = JSON.parse(localStorage.getItem("highScores"));
-// if (storedHighScores !== null) {
-//     highScores = storedHighScores;
-//   }
-
-//   // Render todos to the DOM
-//   renderTodos();
-// }
-
-
-
-// function storeHighScores() {
-//     // Stringify and set "todos" key in localStorage to todos array
-//     localStorage.setItem("highScores", JSON.stringify(highScores));
-//   }
-  
-//   // When form is submitted...
-//   todoForm.addEventListener("submit", function(event) {
-//     event.preventDefault();
-  
-//     var todoText = todoInput.value.trim();
-  
-//     // Return from function early if submitted todoText is blank
-//     if (todoText === "") {
-//       return;
-//     }
-
-// var countDown = document.getElementById("countdown");
-
-
-
-  //Do code for showing the number of seconds here
-
-//When a key is pressed in the text area, update the timer using myFunction
-
- //If seconds are equal or greater than 0, countdown until 1 minute has passed
-//Else, clear the timer and alert user of how many words they type per minute
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// //obsolete solution
-// function showQuestion () {
-//     questionEL.innerText = questions[currentQuestionIndex].question;
-//     console.log(questions[currentQuestionIndex].answers);
-//     questions[currentQuestionIndex].answers.forEach(answer => {
-//         var button = document.createElement("button");
-//         button.textContent = answer;
-//         console.log(answer);
-//         button.classList.add("btn");
-//         // button.addEventListener("click", selectAnswer());
-//         answerButtons.appendChild(button);
-//     });
-
-// };
-
-
-
-
-
-
-// timer
-
-
-// var timeInterval;
-// var startTime = 60;
-// var timePassed = 0;
-// var timeLeft = startTime;
-
-// var countDown = document.getElementById("count-down");
-
-
-// function formatTimeLeft(time) {
-//     var seconds = math.floor(time/60(time % 60));
-//     return seconds;
-// }
-
-// function startTimer () {
-//     timeInterval = setInterval(function()  {
-//         timePassed = (timePassed += 1);
-//         timeLeft = (timeInterval - timePassed);
-    
-//     countDown.innerHTML = timeLeft;
-// }, 1000);
-// };
-
-
-
-
-
-
-
-
-
-
-
-
-
-//highscore list
-//timer
-
-
-
-//quiz 
-    //quiz is stored in 'object' and made in javascript? or quiz is made in html and then each element is adjusted in javascript? 
-    //if right answer is selected
-        //text appears saying correct
-        //quiz moves to next question
-    //else 
-        //text appears saying wrong
-        //quiz moves to next question
-        //5 seconds subtracted from count-down 
-
-//when quiz ends 
-
-//or 
-
-//when time runs out
-
-    //'all done' form 
-    //user submits initials
-        //initials stored in high-score array 
-    //when user submits initials 
-        //shows high-score page 
-
-//highscore page
-
-    //can send user back to beginning
-    //can clear all high

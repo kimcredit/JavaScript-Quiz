@@ -26,14 +26,16 @@ h2 {
 
 /*Header Elements*/
 
-#high-scores {
+#high-scores,
+#back-to-quiz {
     float: left;
     color: white;
     text-decoration: none;
     font-size: 20px;
 }
 
-#high-scores:hover {
+#high-scores:hover,
+#back-to-quiz:hover {
    color: rgba(72, 72, 72, 0.75);
 }
 
@@ -67,7 +69,8 @@ main {
     float: left;
 }
 
-.btn {
+.btn,
+#submit-button {
     background-color: rgb(177, 78, 110);
     color: white;
     font-size: 16px;
@@ -90,10 +93,6 @@ main {
     font-family: Arial, Helvetica, sans-serif;
     font-style: italic;
     color:rgb(158, 173, 179);
-}
-
-.hide {
-    display: none;
 }
 
 /*Starting Form*/
@@ -131,4 +130,9 @@ main {
 #user-initials {
     width: 180px;
     height: 20px;
+}
+
+
+.hide {
+    display: none;
 }
