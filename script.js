@@ -106,20 +106,22 @@ function showQuestion () {
         console.log(currentQuestionIndex);
     }
 }
-//this removes our current buttons so the new buttons can line up after
+//remove current buttons 
 function resetState() {
     while (answerButtons.firstChild) {
         answerButtons.removeChild(answerButtons.firstChild);
     }
 }
+//user selection responses
 function chooseAnswer(event) {
-    console.log(event.target);
     var button = event.target; 
+    //if the button is right, give a correct response 
     if (button.value === questions[currentQuestionIndex].correctAnswer) {
         var userChoice = document.createElement("p");
         userChoice.innerText = "Correct!";
         rightWrong.appendChild(userChoice);
         window.setTimeout(disappear, 1000);
+    //if the button is wrong, give a 'wrong' responce
     } else {
         var userChoice = document.createElement("p");
         userChoice.innerText ="Wrong!";
@@ -149,10 +151,11 @@ function showEndMenu() {
 function submitInitials() {
      //make the user score show up in the end menu
     var showScore = (totalScore + "/" + questions.length);
-    console.log(showScore);
     userScore.innerHTML= ("Your Final Score is " + showScore);
+    //the user submits their initials
     submitInits.addEventListener("click", function addHighScore () {       
         var submitScore = (scoreInput.value + "  " + showScore);
+        //if the user's submission is empty or is too long, an error message appears
         if ((scoreInput.value === "") || (scoreInput.value.length > 3)) {
             var error = document.createElement("p");
             error.innerText = "Must enter value between 1 and 3 characters";
@@ -160,8 +163,8 @@ function submitInitials() {
             //the warning disappears after two seconds and the user needs to resubmit their initials
             window.setTimeout(disappear, 2000);
             return;
+        //if the users submission meets the criteria, their initials are added to the highscores array, and the input box disappears so they can't try and submit again
         }else {
-            console.log(submitScore);
             highScores.push(submitScore);
             localStorage.setItem("highScores", JSON.stringify(highScores));
             while (userInput.firstChild) {
