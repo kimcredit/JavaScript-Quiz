@@ -43,9 +43,6 @@ var questions = [
     new quizQuestions ("String values must be enclosed within _____ when being assigned to variables.",["01. commas", "02. curly brackets", "03. quotes","04. parenthesis"], "02. curly brackets"),
     new quizQuestions ("A very useful tool used during development and debugging for printing content to the debugger is:",["01. JavaScript", "02. terminal/bash", "03. for loops","04. console.log"], "04. console.log"),
 ];
-
-
-
 //stored variables 
 var totalScore = (questions.length);
 var highScores = [];
@@ -53,8 +50,6 @@ var currentQuestionIndex = 0;
 var currentTime = 60;
 var tick;
 var timer_is_on = 0;
-
-
 
 //start the game when you click the start button
 startButton.addEventListener("click" , startGame);
@@ -71,11 +66,11 @@ function timedCount() {
 }
 //start timer and set interval
 function startTimer() {
-if (!timer_is_on) {
-    timer_is_on = 1;
-    tick = setInterval(timedCount, 1000);
-    timedCount();
-}
+    if (!timer_is_on) {
+        timer_is_on = 1;
+        tick = setInterval(timedCount, 1000);
+        timedCount();
+    }
 }
 //stop timer and clear interval
 function stopTimer() {
@@ -83,21 +78,20 @@ clearInterval(tick);
 timer_is_on = 0;
 countDown.innerHTML = ("Time : 0");
 }
-
-//set start game function  
+//Start the game 
 function startGame(){
     //make start menu clear and first quiz question appear
     startMenu.classList.add("hide");
     quizEl.classList.remove("hide");
-    //change current question index to 0 and run nextQuestion
+    //set current question index to 0 and start timer
     currentQuestionIndex = 0;
     nextQuestion();
     startTimer();
 }
+//controls when the quiz ends and which question appears
 function nextQuestion () {
-    //if there are no more questions left...
+    //if there are no more questions left end the quiz and stop the timer
     if (questions.length === (currentQuestionIndex)) {                                                 
-        //Move to the end menu and stop the timer
         showEndMenu();    
         stopTimer()
     } else {
@@ -123,7 +117,6 @@ function showQuestion () {
         button.setAttribute('value', questions[currentQuestionIndex].answers[i]);
         //make it so when the button is clicked, the form runs a chooseAnswer function
         button.addEventListener("click", chooseAnswer);
-        console.log(currentQuestionIndex);
     }
 }
 //remove current buttons 
@@ -152,6 +145,7 @@ function chooseAnswer(event) {
         // subtract 15 seconds
         currentTime = (currentTime - 10);
     }
+    //clear warnings
     function disappear (){
         userChoice.remove();
     }
@@ -185,19 +179,18 @@ function submitInitials() {
             window.setTimeout(disappear, 2000);
             scoreInput.value = "";
             return;
-        //if the users submission meets the criteria, their initials are added to the highscores array, and the input box disappears so they can't try and submit again
         }else {
-            highScores.push(submitScore);
+            //input elements are hidden so user cannot double-enter 
             scoreInput.classList.add("hide");
             submitInits.classList.add("hide");
-            console.log(highScores);
+            //use the initials as a key to add the score to local storage
             storeList(scoreInput.value, showScore);
-            getList();
         }
         function disappear () {
         error.remove();
         }
     });
+    //user can nav to high scores or beginning with buttons 
     restartButton.addEventListener("click", resetQuiz);
     seeHighScoresButton.addEventListener("click",switchPage)
 }
@@ -214,19 +207,8 @@ function resetQuiz() {
 function switchPage () {
     window.location.href = 'highscores.html';
 }
-function getList() {
-    // Get stored scores from localStorage
-    // Parsing the JSON string to an object
-    var storedHighScores = JSON.parse(localStorage.getItem("high-scores"));
-    // If high scores were retrieved from localStorage, update the high scores array to it
-    if (storedHighScores !== null) {
-      highScores = storedHighScores;
-    }
-}
+//add items to local storage 
 function storeList(initials , score) {
-    // Stringify and set "high-scores" key in localStorage to highScores array
+    //add items to local storage using initials as a key for score
     localStorage.setItem(initials, score);
-    console.log(initials);
 }
-
-console.log(localStorage);
