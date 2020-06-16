@@ -19,3 +19,5 @@ high-score list.
 
 They can then choose to view the high-score list or to return to the main menu and try
 the quiz again. 
+
+Preview it here: https://kimcredit.github.io/JavaScript-Quiz/
