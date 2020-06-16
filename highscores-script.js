@@ -1,20 +1,28 @@
 //show high scores list
-var highScores = [];
-getList();
-storeList();
 
-function renderHighScores () {
+
+
+getList();
+
+
+function renderHighScores (array) {
     var highScoresList = document.getElementById("high-scores-list");
     //for every high score 
-    for (var i = 0; i < highScores.length; i++) {
+    for (var i = 0; i < array.length; i++) {
         //remove placeholder spots from the bottom
+        console.log(array[i]);
         highScoresList.removeChild(highScoresList.lastElementChild);
-        var highScore = highScores[i];
+        var initials = array[i];
         //create a list item
         var li = document.createElement("li");
-        li.setAttribute("data-index", i);
+        var pi = document.createElement("p");
+        var ps = document.createElement("p");
+        pi.textContent = initials + "- - -";
+        ps.textContent = localStorage.getItem(array[i]);
+        li.appendChild(pi);
+        li.appendChild(ps);
         //assign the list item the high score
-        li.textContent = highScore;
+        // li.textContent = initials;
         //add the list item to the highscores list starting at the top
         highScoresList.insertBefore(li, highScoresList.childNodes[0]);
     }
@@ -24,19 +32,14 @@ function renderHighScores () {
 function getList() {
     // Get stored scores from localStorage
     // Parsing the JSON string to an object
-    var storedHighScores = JSON.parse(localStorage.getItem("high-scores"));
+    var storedHighScores = Object.keys(localStorage);
     // If high scores were retrieved from localStorage, update the high scores array to it
-    if (storedHighScores !== null) {
-        highScores = storedHighScores;
-    }
+    // if (storedHighScores !== null) {
+    //     highScores = storedHighScores;
+    // }
     // Render high scores to the DOM
-    renderHighScores();
+    renderHighScores(storedHighScores);
 }
 
-      
-function storeList() {
-    // Stringify and set "high-scores" key in localStorage to highScores array
-    localStorage.setItem("high-scores", JSON.stringify(highScores));
-}
-
+    
 

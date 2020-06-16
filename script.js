@@ -187,12 +187,11 @@ function submitInitials() {
             return;
         //if the users submission meets the criteria, their initials are added to the highscores array, and the input box disappears so they can't try and submit again
         }else {
-            highScores.unshift(submitScore);
-            scoreInput.value = "";
+            highScores.push(submitScore);
             scoreInput.classList.add("hide");
             submitInits.classList.add("hide");
             console.log(highScores);
-            storeList();
+            storeList(scoreInput.value, showScore);
             getList();
         }
         function disappear () {
@@ -224,8 +223,10 @@ function getList() {
       highScores = storedHighScores;
     }
 }
-function storeList() {
+function storeList(initials , score) {
     // Stringify and set "high-scores" key in localStorage to highScores array
-    localStorage.setItem("high-scores", JSON.stringify(highScores));
+    localStorage.setItem(initials, score);
+    console.log(initials);
 }
 
+console.log(localStorage);
