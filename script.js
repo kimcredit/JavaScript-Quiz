@@ -28,7 +28,7 @@ var highScoresList = document.getElementById("high-scores-list");
 
 //Countdown elements
 var countDown = document.getElementById("countdown");
-
+ 
 //create a function that holds the quiz questions, user options, and the correct answer
 function quizQuestions (question, answers, correctAnswer) {
     this.question = question;
